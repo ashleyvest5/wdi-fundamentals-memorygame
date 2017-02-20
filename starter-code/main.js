@@ -2,46 +2,54 @@
 
 // cards of the game
 console.log("JS file is connected to HTML! Woo!");
-var cardOne = "queen";
-var cardTwo = "queen";
-var cardThree = "king";
-var cardFour = "king";
 
-var cards = ['queen', 'queen', 'king', 'king'];
+//var cardOne = "queen";
+//var cardTwo = "queen";
+//var cardThree = "king";
+//var cardFour = "king";
 
+var cards = Array("queen", "king", "queen", "king");
 var cardsInPlay = [];
+var gBoard = document.getElementById('game-board');
 
-var boardMaker = document.getElementById('game-board');
+//if (cardTwo === cardFour) {
+//   alert("You found a match!");
+// }
+//   else {
+//     alert("Sorry try again")
+//   };
 
-var createBoard = function(qty) {
-    for (var i = 0; i < qty; i++){
-    var newCard = document.createElement('div');
-    newCard.className = "card";
-    newCard.setAttribute('data-card', cards[i]);
-    newCard.addEventListener('click', isTwoCards);
-    boardMaker.appendChild(newCard);
-    }
-};
-var isMatch = function() {
-    if (cardsInPlay[0] === cardsInPlay[1]) {
-        alert("You found a match!");
-    }else{
-        alert("Sorry, Try again");
-        }
-};
+function isMatch(cards) {
+  if (cards[0] === cards[1]) {
+    alert("You found a match!")
+  } else {
+    alert("Sorry Try again")
+  }
+}
 
-var isTwoCards = function(){
-    cardsInPlay.push(this.getAttribute('data-card'));
-    if (this.getAttribute('data-card') === "king") {
-        this.innerHTML = '<img src="king.png">';
-    } else {
-        this.innerHTML = '<img src="queen.png">';
-    }
+function isTwoCards() {
+  cardsInPlay.push(this.getAttribute('data-card'));
+    if (this.getAttribute('data-card') === 'queen') {
+    this.innerHTML = "img src='king.png'>";
+  } 
+  else {
+    this.innerHTML = "img src='queen.png'>";
+  }
     if (cardsInPlay.length === 2) {
-        isMatch(cardsInPlay);
-        cardsInPlay = [];
-    }
+    isMatch(cardsInPlay);
+    cardsInPlay = [];
+  }
+
+}
+function createBoard() {
+  for (var i = 0; i < cards.length; i++) {
+    var cardElement = document.createElement('div');
+
+    cardElement.className = 'card';
+    cardElement.setAttribute('data-card', cards[i]);
+
+    cardElement.addEventListener('click', isTwoCards);
+    gBoard.appendChild(cardElement);
+    gBoard.appendChild(cardElement);
+  }
 };
-
-
-createBoard(4);
